@@ -1,15 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.btc.com.silentuncle.controller.ApplicationController">
-    <Pane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0"
-          AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
-            <Label alignment="CENTER" layoutX="79.0" layoutY="59.0" nodeOrientation="LEFT_TO_RIGHT"
-                   text="%mainLabelText"
-                   textAlignment="CENTER"/>
-    </Pane>
 
-</AnchorPane>
+<?import javafx.scene.image.Image?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.btc.com.silentuncle.controller.ApplicationController">
+
+    <!-- TOP AREA: Logo + User Info -->
+    <top>
+        <HBox spacing="20" BorderPane.alignment="TOP_CENTER">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <children>
+                <ImageView fx:id="logoImageView"
+                           fitHeight="25" fitWidth="50"
+                           preserveRatio="true"
+                           pickOnBounds="true">
+                    <image>
+                        <Image url="silentunclelogo.png"/>
+                    </image>
+                </ImageView>
+
+
+                <!-- Spacer -->
+                <Pane HBox.hgrow="ALWAYS"/>
+
+                <!-- User Info and Settings -->
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <children>
+                        <Label fx:id="userLabel" text="Windows User"/>
+                        <Button fx:id="settingsButton" text="Einstellungen"/>
+                    </children>
+                </HBox>
+
+            </children>
+        </HBox>
+    </top>
+
+    <!-- CENTER AREA: Alarm Buttons -->
+    <center>
+        <HBox spacing="50" alignment="CENTER">
+            <children>
+                <Button fx:id="tierAlarmButton" text="Tier Alarm" prefWidth="150" prefHeight="80" onAction="#handleTierAlarm"/>
+                <Button fx:id="feuerAlarmButton" text="Feuer Alarm" prefWidth="150" prefHeight="80" onAction="#handleFeuerAlarm"/>
+            </children>
+        </HBox>
+    </center>
+
+</BorderPane>

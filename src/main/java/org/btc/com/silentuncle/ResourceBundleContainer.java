@@ -1,18 +1,23 @@
 package org.btc.com.silentuncle;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 import java.util.ResourceBundle;
+
 @Component
 public class ResourceBundleContainer {
-    @Getter
-    @Setter
+
+    private final ResourceBundle resourceBundle;
+
+    // Konstruktor-Injektion für bessere Testbarkeit und saubere Abhängigkeiten
     @Autowired
-    private ResourceBundle resourceBundle;
-    public ResourceBundleContainer( ResourceBundle resourceBundle) {
-        this.resourceBundle = resourceBundle;
+    public ResourceBundleContainer(ResourceBundle resourceBundle) {
+        this.resourceBundle = Objects.requireNonNull(resourceBundle, "ResourceBundle darf nicht null sein");
+    }
+
+    public ResourceBundle getResourceBundle() {
+        return resourceBundle;
     }
 }

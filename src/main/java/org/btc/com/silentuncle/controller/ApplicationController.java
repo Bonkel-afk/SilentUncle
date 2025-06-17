@@ -8,12 +8,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import org.btc.com.silentuncle.ResourceBundleContainer;
 import org.btc.com.silentuncle.events.MainPageEvent;
 import org.btc.com.silentuncle.events.StageReadyEvent;
 import org.btc.com.silentuncle.events.TrayIconEvent;
 import org.btc.com.silentuncle.services.LocaleService;
 import org.btc.com.silentuncle.view.TrayIconView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
@@ -30,41 +33,52 @@ import java.util.ResourceBundle;
 @Component
 public class ApplicationController {
 
-    private final String applicationTitle;
     public static ApplicationContext applicationContext;
     private final TrayIconView trayIconView;
-    private final LocaleService localeService;
 
     @FXML
     private Label label;
     @FXML
-    private Button settingsButton;
-    @FXML
     private ComboBox<String> languageComboBox;
 
-    private final ResourceBundle resourceBundle;
+    @FXML
+    private ImageView logoImageView;
+
+    @FXML
+    private Label userLabel;
+
+    @FXML
+    private Button settingsButton;
+
+    @FXML
+    private Button tierAlarmButton;
+
+    @FXML
+    private Button feuerAlarmButton;
+
+    @Autowired
+    private ResourceBundleContainer resourceBundleContainer;
+    @Autowired
+    private LocaleService localeService;
 
 
-    ApplicationController(ApplicationContext applicationContext, TrayIconView trayIconView, LocaleService localeService, @Qualifier("messageSource") MessageSource messageSource, ResourceBundle resourceBundle) {
+    ApplicationController(ApplicationContext applicationContext, TrayIconView trayIconView) {
         ApplicationController.applicationContext = applicationContext;
         this.trayIconView = trayIconView;
-        this.localeService = localeService;
-        this.resourceBundle = resourceBundle;
-        this.applicationTitle = bundle.getString("applicationName");
 
-        bundle = ResourceBundle.getBundle("i18n.message", LocaleService.getLocale());
 
     }
+
     @FXML
     public void initialize() {
         //noinspection StatementWithEmptyBody
-        if(languageComboBox==null){
+        if (languageComboBox == null) {
             //this
-        }else{
-        languageComboBox.getItems().addAll("Deutsch", "English");
-        languageComboBox.setValue("English");  // Standardauswahl
+        } else {
+            languageComboBox.getItems().addAll("Deutsch", "English");
+            languageComboBox.setValue("English");  // Standardauswahl
         }
-
+        userLabel.setText(System.getProperty("user.name"));
     }
 
 
@@ -73,8 +87,9 @@ public class ApplicationController {
         try {
             Stage stage = event.getStage();
             trayIconView.setupTray(stage);
-            FXMLLoader fxmlLoader = new FXMLLoader();       fxmlLoader.setLocation(ApplicationController.class.getResource("/main.fxml"));
-            fxmlLoader.setResources(bundle);
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(ApplicationController.class.getResource("/main.fxml"));
+            fxmlLoader.setResources(resourceBundleContainer.getResourceBundle());
             return getStage(stage, fxmlLoader);
 
         } catch (Exception e) {
@@ -83,13 +98,30 @@ public class ApplicationController {
         return null;
 
     }
+    @FXML
+    private void handleTierAlarm() {
+        System.out.println("Tier Alarm ausgelöst!");
+        trayIconView.displayAnimalIncidentAlarm();
+    }
+
+    @FXML
+    private void handleFeuerAlarm() {
+        System.out.println("Feuer Alarm ausgelöst!");
+        trayIconView.displayFireAlarm();
+    }
+
+    @FXML
+    private void handleSettings() {
+        System.out.println("Einstellungen geöffnet.");
+    }
+
     @EventListener
     public Stage onMainPageEvent(MainPageEvent event) {
         try {
             Stage stage = event.getStage();
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(TrayIconView.class.getResource("/main.fxml"));
-            fxmlLoader.setResources(bundle);
+            fxmlLoader.setResources(resourceBundleContainer.getResourceBundle());
             getStage(stage, fxmlLoader);
             return stage;
 
@@ -107,7 +139,7 @@ public class ApplicationController {
             Stage stage = event.getStage();
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(TrayIconView.class.getResource("/settings.fxml"));
-            fxmlLoader.setResources(bundle);
+            fxmlLoader.setResources(resourceBundleContainer.getResourceBundle());
             getStage(stage, fxmlLoader);
             settingsButton.setOnAction(e -> changeLanguage());
             return stage;
@@ -134,12 +166,12 @@ public class ApplicationController {
     }
 
     private void updateTexts() {
-            if (label != null) {
-                label.setText(bundle.getString("settingsLabel"));
-            }
-            if (settingsButton != null) {
-                settingsButton.setText(bundle.getString("settingsButton"));
-            }
+        if (label != null) {
+            label.setText(resourceBundleContainer.getResourceBundle().getString("settingsLabel"));
+        }
+        if (settingsButton != null) {
+            settingsButton.setText(resourceBundleContainer.getResourceBundle().getString("settingsButton"));
+        }
 
 
     }
@@ -150,7 +182,7 @@ public class ApplicationController {
         Scene scene = new Scene(root, 600, 400);
         stage.setScene(scene);
         stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResource("/silentunclelogo.png")).toExternalForm()));
-        stage.setTitle(this.applicationTitle);
+        stage.setTitle(resourceBundleContainer.getResourceBundle().getString("applicationName"));
         stage.setResizable(false);
         stage.setAlwaysOnTop(true);
         stage.show();
