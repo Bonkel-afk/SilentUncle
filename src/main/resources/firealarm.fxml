@@ -1,12 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.btc.com.silentuncle.controller.ApplicationController">
-    <Pane layoutX="1.0" maxHeight="1080.0" maxWidth="1920.0" opacity="0.21" prefHeight="417.0" prefWidth="600.0" style="-fx-background-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-    <Label fx:id="label" alignment="CENTER" layoutX="275.0" layoutY="39.0" nodeOrientation="LEFT_TO_RIGHT" text="AlarmXY" textAlignment="CENTER" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
-   <Label fx:id="labelInfos" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="17.0" prefWidth="591.0" text="Infos" textAlignment="CENTER" />
-    <Button fx:id="button" layoutX="275.0" layoutY="361.0" mnemonicParsing="false" text="Helfen" textAlignment="CENTER" textOverrun="CLIP" />
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.btc.com.silentuncle.controller.ApplicationController"
+            style="-fx-background-color: #ffebee;"> <!-- Sanftes Rot für den Hintergrund -->
+
+    <VBox alignment="CENTER" spacing="30"
+          AnchorPane.topAnchor="0.0"
+          AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0">
+
+        <padding>
+            <Insets top="60" bottom="60" left="40" right="40"/>
+        </padding>
+
+        <!-- Titel -->
+        <Label fx:id="label"
+               text="🔥 Feueralarm aktiviert"
+               style="-fx-font-size: 24px; -fx-text-fill: #b71c1c; -fx-font-weight: bold;"
+               textAlignment="CENTER"/>
+
+        <!-- Info -->
+        <Label fx:id="labelInfos"
+               text="Ein Brand wurde erkannt. Bitte handeln Sie sofort!"
+               wrapText="true"
+               style="-fx-font-size: 16px; -fx-text-fill: #444;"
+               textAlignment="CENTER"
+               maxWidth="400"/>
+
+        <!-- Button -->
+        <Button fx:id="button"
+                text="Ich helfe!"
+                style="
+                    -fx-background-color: #c62828;
+                    -fx-text-fill: white;
+                    -fx-font-size: 16px;
+                    -fx-background-radius: 12px;
+                    -fx-padding: 10 30 10 30;"
+        />
+    </VBox>
 
 </AnchorPane>

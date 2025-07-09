@@ -1,13 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.btc.com.silentuncle.controller.ApplicationController">
-    <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <ComboBox fx:id="languageComboBox" prefWidth="150.0" />
-        <HBox alignment="CENTER" spacing="10.0" />
-        <Button fx:id="settingsButton" mnemonicParsing="false" text="%settingsButton" textAlignment="CENTER" textOverrun="CLIP" />
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.btc.com.silentuncle.controller.ApplicationController"
+            style="-fx-background-color: #f3f3f3;">
+
+    <VBox alignment="CENTER" spacing="20"
+          AnchorPane.topAnchor="0.0"
+          AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0">
+
+        <padding>
+            <Insets top="40" bottom="40" left="20" right="20"/>
+        </padding>
+
+        <!-- Titel -->
+        <Label fx:id="label"
+               text="%settingsLabel"
+               style="-fx-font-size: 22px; -fx-text-fill: #222222; -fx-font-weight: bold;"
+               textAlignment="CENTER"/>
+
+        <!-- Sprache wählen -->
+        <VBox spacing="10" alignment="CENTER">
+            <Label text="Sprache wählen:"
+                   style="-fx-font-size: 14px; -fx-text-fill: #555555;"/>
+            <ComboBox fx:id="languageComboBox"
+                      prefWidth="200"
+                      style="-fx-background-radius: 8px; -fx-padding: 6 10;"/>
+        </VBox>
+
+        <!-- Button -->
+        <Button fx:id="settingsButton"
+                text="%settingsButton"
+                style="
+                    -fx-background-color: #0078d7;
+                    -fx-text-fill: white;
+                    -fx-font-size: 14px;
+                    -fx-background-radius: 10px;
+                    -fx-padding: 10 30;"
+        />
     </VBox>
-    <Label fx:id="label" text="%settingsLabel" alignment="CENTER" layoutX="275.0" layoutY="39.0" nodeOrientation="LEFT_TO_RIGHT" textAlignment="CENTER" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 </AnchorPane>
