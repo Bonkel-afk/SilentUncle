@@ -25,6 +25,10 @@ public class TrayIconView {
 
     public void setupTray(Stage stage) {
         stageInternal = stage;
+        if (!FXTrayIcon.isSupported()) {
+            System.err.println("SystemTray is not supported on this platform.");
+            return;
+        }
         trayIcon = new FXTrayIcon(stage, Objects.requireNonNull(getClass().getResource("/silentunclelogo.png")));
         // Create menu items and add them to the trayIcon
         createAndAddMenuItems();
@@ -65,6 +69,7 @@ public class TrayIconView {
     }
 
     public void updateTrayIconTexts() {
+        if (trayIcon == null) return;
         // Update the tooltip and menu items with the new texts
         trayIcon.setTooltip(messageSource.getMessage("applicationName", null, LocaleService.getLocale()));
         // Clear and re-add menu items
@@ -73,14 +78,20 @@ public class TrayIconView {
     }
 
     public void displayFireAlarm() {
-        trayIcon.showErrorMessage("Feuer", "Feuer ist ausgebrochen. Sofort Raus!!!");
+        if (trayIcon != null) {
+            trayIcon.showErrorMessage("Feuer", "Feuer ist ausgebrochen. Sofort Raus!!!");
+        }
     }
 
     public void displayBullyAlarm() {
-        trayIcon.showInfoMessage("Aggressiver Vorfall", "Ein Kunde verhält sich aggressiv am Empfang bitte um Hilfe");
+        if (trayIcon != null) {
+            trayIcon.showInfoMessage("Aggressiver Vorfall", "Ein Kunde verhält sich aggressiv am Empfang bitte um Hilfe");
+        }
     }
 
     public void displayAnimalIncidentAlarm() {
-        trayIcon.showInfoMessage("Tier Alarm", "Tier Alarm im Behandlungsraum XY bitte um Unterstützung");
+        if (trayIcon != null) {
+            trayIcon.showInfoMessage("Tier Alarm", "Tier Alarm im Behandlungsraum XY bitte um Unterstützung");
+        }
     }
 }
