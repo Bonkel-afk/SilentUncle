@@ -27,16 +27,33 @@
 
         <!-- Sprache wählen -->
         <VBox spacing="10" alignment="CENTER">
-            <Label text="Sprache wählen:"
+            <Label fx:id="chooseLanguageLabel" text="%chooseLanguage"
                    style="-fx-font-size: 14px; -fx-text-fill: #555555;"/>
             <ComboBox fx:id="languageComboBox"
                       prefWidth="200"
                       style="-fx-background-radius: 8px; -fx-padding: 6 10;"/>
         </VBox>
 
+        <!-- Rolle wählen -->
+        <VBox spacing="10" alignment="CENTER">
+            <Label fx:id="chooseRoleLabel" text="%chooseRole"
+                   style="-fx-font-size: 14px; -fx-text-fill: #555555;"/>
+            <ComboBox fx:id="roleComboBox"
+                      prefWidth="200"
+                      style="-fx-background-radius: 8px; -fx-padding: 6 10;"/>
+        </VBox>
+
+        <!-- Admin Passwort Bereich (nur sichtbar wenn Admin ausgewählt) -->
+        <VBox fx:id="adminPasswordArea" spacing="10" alignment="CENTER" visible="false" managed="false">
+            <Label fx:id="adminPasswordLabel" text="%adminPasswordLabel" style="-fx-font-size: 14px; -fx-text-fill: #555555;"/>
+            <PasswordField fx:id="adminPasswordField" prefWidth="200" maxWidth="200"
+                           style="-fx-background-radius: 8px; -fx-padding: 6 10;"/>
+        </VBox>
+
         <!-- Button -->
         <Button fx:id="settingsButton"
                 text="%settingsButton"
+                onAction="#handleApplySettings"
                 style="
                     -fx-background-color: #0078d7;
                     -fx-text-fill: white;

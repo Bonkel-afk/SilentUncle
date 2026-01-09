@@ -1,3 +1,10 @@
-org\btc\com\silentuncle\JavaFxApplication.class
-org\btc\com\silentuncle\SpringApplication.class
-org\btc\com\silentuncle\ResourceBundleContainer.class
+org/btc/com/silentuncle/view/TrayIconView.class
+org/btc/com/silentuncle/events/StageReadyEvent.class
+org/btc/com/silentuncle/events/MainPageEvent.class
+org/btc/com/silentuncle/ResourceBundleContainer.class
+org/btc/com/silentuncle/SpringApplication.class
+org/btc/com/silentuncle/events/TrayIconEvent.class
+org/btc/com/silentuncle/JavaFxApplication.class
+org/btc/com/silentuncle/config/ResourceBundleConfig.class
+org/btc/com/silentuncle/services/LocaleService.class
+org/btc/com/silentuncle/controller/ApplicationController.class

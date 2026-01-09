@@ -19,6 +19,10 @@ public class TrayIconView {
     private final MessageSource messageSource;
     private Stage stageInternal = null;
 
+    public Stage getStage() {
+        return stageInternal;
+    }
+
     public TrayIconView( MessageSource messageSource) {
         this.messageSource = messageSource;
     }
@@ -79,19 +83,28 @@ public class TrayIconView {
 
     public void displayFireAlarm() {
         if (trayIcon != null) {
-            trayIcon.showErrorMessage("Feuer", "Feuer ist ausgebrochen. Sofort Raus!!!");
+            trayIcon.showErrorMessage(
+                messageSource.getMessage("fireAlarmTitle", null, LocaleService.getLocale()),
+                messageSource.getMessage("fireAlarmMessage", null, LocaleService.getLocale())
+            );
         }
     }
 
     public void displayBullyAlarm() {
         if (trayIcon != null) {
-            trayIcon.showInfoMessage("Aggressiver Vorfall", "Ein Kunde verhält sich aggressiv am Empfang bitte um Hilfe");
+            trayIcon.showInfoMessage(
+                messageSource.getMessage("customerAlarmTitle", null, LocaleService.getLocale()),
+                messageSource.getMessage("customerAlarmMessage", null, LocaleService.getLocale())
+            );
         }
     }
 
     public void displayAnimalIncidentAlarm() {
         if (trayIcon != null) {
-            trayIcon.showInfoMessage("Tier Alarm", "Tier Alarm im Behandlungsraum XY bitte um Unterstützung");
+            trayIcon.showInfoMessage(
+                messageSource.getMessage("animalAlarmTitle", null, LocaleService.getLocale()),
+                messageSource.getMessage("animalAlarmMessage", null, LocaleService.getLocale())
+            );
         }
     }
 }

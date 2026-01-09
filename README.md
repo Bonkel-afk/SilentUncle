@@ -1,20 +1,29 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# SilentUncle
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+SilentUncle ist ein Alarmierungssystem für Netzwerke. Es ermöglicht das Senden und Empfangen von Alarmen (Feuer, Tier, Kunde) zwischen verschiedenen Instanzen im Netzwerk.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Funktionen
+- Senden von Alarmen über die Benutzeroberfläche.
+- Empfangen von Alarmen über eine REST-API (`/api/alarms/receive`).
+- Anzeige von Alarmen über System-Tray-Benachrichtigungen.
+- Konfigurierbare Ziel-IPs für Alarme.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## Konfiguration
+In der `src/main/resources/application.properties` können die Ziel-Instanzen konfiguriert werden:
+```properties
+alarm.destinations=http://192.168.1.10:8080,http://192.168.1.11:8080
+```
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## Build & Ausführung
+### Als JAR bauen
+```bash
+./mvnw clean package
+```
+Das JAR befindet sich dann unter `target/silentuncle-0.0.1-SNAPSHOT.jar`.
+
+### Als EXE (Windows)
+Um eine .exe zu erstellen, kann `jpackage` (ab Java 14) verwendet werden. Nach dem `mvn package`:
+```bash
+jpackage --input target/ --name SilentUncle --main-jar silentuncle-0.0.1-SNAPSHOT.jar --main-class org.btc.com.silentuncle.SpringApplication --type exe --win-shortcut --win-menu
+```
+*Hinweis: Dies erfordert eine installierte WiX Toolset Umgebung auf Windows.*
